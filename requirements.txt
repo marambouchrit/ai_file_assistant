@@ -1,0 +1,4 @@
+# Day 1 — config + parsing
+pydantic-settings>=2.3
+pypdf>=4.2
+python-docx>=1.1

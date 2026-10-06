@@ -1,0 +1,18 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secrets
+.env
+
+# Runtime data
+data/docs/*
+!data/docs/.gitkeep
+data/metadata.json
+qdrant_storage/
+
+# Frontend
+node_modules/
+frontend/dist/

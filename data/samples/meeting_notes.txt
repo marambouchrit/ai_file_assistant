@@ -1,0 +1,47 @@
+PRODUCT TEAM - WEEKLY SYNC
+Date: 15 May 2025
+Attendees: Sofia Marin (product lead), Tom Whitaker (engineering), Leila Haddad (design), Jonas Berg (support)
+Absent: Priya Nair
+
+1. Release 3.4 status
+
+Tom reported that release 3.4 of the mobile app is feature complete. Two blocking bugs remain: the
+offline sync loses edits when the device changes time zone, and the export to CSV produces an empty
+file for accounts with more than 10,000 records. Both fixes are in review. The release date moves
+from 20 May to 27 May to leave time for a full regression run.
+
+Sofia asked whether the dark mode setting could still be included. The team agreed to postpone it to
+release 3.5 because the design review is not finished.
+
+2. Customer feedback
+
+Jonas presented the support numbers for April: 1,240 tickets were opened, 18% fewer than in March.
+The median first response time was 3 hours 10 minutes. The top three topics were password resets,
+billing questions and the new calendar view. Several customers complained that the calendar view
+does not show public holidays.
+
+Leila will prepare two design options for holiday display and share them by 22 May.
+
+3. Pricing experiment
+
+The experiment with the annual plan discount ran for four weeks on 5,000 trial accounts. The 20%
+discount increased annual plan conversion from 6.1% to 8.4%, while the 30% discount reached 8.9%.
+Because the extra gain from 30% is small, the team decided to keep the 20% discount and roll it out
+to all new trials on 2 June.
+
+4. Hiring
+
+Engineering has two open positions: one senior backend developer and one QA engineer. Four
+candidates are in the final round for the backend role. The QA position has been open for nine
+weeks with few qualified applicants; Tom will ask recruiting to widen the search to remote
+candidates in neighbouring countries.
+
+5. Action items
+
+- Tom: merge the two blocking fixes and start the regression run by 19 May.
+- Leila: holiday display options by 22 May.
+- Sofia: announce the new release date to the sales team and update the public roadmap.
+- Jonas: write a help-center article about password resets to reduce ticket volume.
+- Priya: (carried over) finish the onboarding email sequence.
+
+Next meeting: 22 May 2025, 10:30, room Kepler.
