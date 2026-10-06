@@ -102,6 +102,32 @@ With the sample documents uploaded:
 
 Questions and documents can be in different languages.
 
+## Evaluation
+
+The assistant was evaluated on 20 questions about the three sample documents ([eval/questions.json](eval/questions.json)), in English and French. Each question has an expected answer and an expected source written before the run.
+
+| Category | Questions | Correct answer | Right source or tool |
+|---|---|---|---|
+| Factual, one document | 9 | 9 | 9 |
+| Needs the right document | 4 | 4 | 4 |
+| Metadata and listing | 4 | 4 | 4 |
+| No answer in the documents | 3 | 3 (all said "not found") | n/a |
+| **Total** | **20** | **20** | **17 / 17** |
+
+- **Hallucinations: 0 of 20**, checked by reading every answer against the documents.
+- **Speed:** 2.7 s per answer on average (7.3 s at most), with 1.6 tool calls per question.
+- **Source precision:** the expected file was always among the displayed sources, but in 8 of the 13 content questions the list also included a passage from another file.
+
+How to read these numbers: this is a single run with `gemini-3.5-flash-lite` on a small corpus of three short documents, and the questions were written by the author of the system. LLM answers vary between runs. The result shows that the pipeline works end to end, not how it would perform on a large or messy document set.
+
+To reproduce, start the API with the three files of `data/samples/` uploaded, then:
+
+```bash
+python eval/run_eval.py
+```
+
+The script pauses between questions to stay under the free-tier rate limit, checks each answer for the expected key facts, and writes [eval/results.json](eval/results.json) with every answer, the tools called and the sources.
+
 ## Tests
 
 ```bash
@@ -135,6 +161,7 @@ frontend/src/
 ├── App.tsx             # layout: sidebar + chat
 └── components/         # UploadPanel, DocumentList, Chat, Message
 data/samples/           # three sample documents
+eval/                   # questions.json, run_eval.py, results.json
 tests/
 ```
 

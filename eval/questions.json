@@ -1,0 +1,156 @@
+[
+  {
+    "id": 1,
+    "category": "factual",
+    "question": "What is the one-time home office allowance for remote employees?",
+    "expected_answer": "400 euros",
+    "expected_source": "remote_work_policy.pdf",
+    "must_contain": [["400"]]
+  },
+  {
+    "id": 2,
+    "category": "factual",
+    "question": "What are the core collaboration hours for remote employees?",
+    "expected_answer": "10:00 to 16:00 Central European Time",
+    "expected_source": "remote_work_policy.pdf",
+    "must_contain": [["10:00", "10 am", "10h"], ["16:00", "4 pm", "16h"]]
+  },
+  {
+    "id": 3,
+    "category": "factual",
+    "question": "Dans quel délai faut-il signaler un équipement perdu ou volé ?",
+    "expected_answer": "Dans les 24 heures, au service desk informatique",
+    "expected_source": "remote_work_policy.pdf",
+    "must_contain": [["24"]]
+  },
+  {
+    "id": 4,
+    "category": "factual",
+    "question": "Quel est le budget total approuvé du projet Atlas ?",
+    "expected_answer": "480 000 euros",
+    "expected_source": "rapport_projet_atlas.docx",
+    "must_contain": [["480000"]]
+  },
+  {
+    "id": 5,
+    "category": "factual",
+    "question": "Who is the cloud architect of the Atlas project?",
+    "expected_answer": "Karim Benali",
+    "expected_source": "rapport_projet_atlas.docx",
+    "must_contain": [["karim benali"]]
+  },
+  {
+    "id": 6,
+    "category": "factual",
+    "question": "Quand aura lieu la bascule définitive vers la nouvelle plateforme ?",
+    "expected_answer": "Pendant le week-end du 27 septembre (2025)",
+    "expected_source": "rapport_projet_atlas.docx",
+    "must_contain": [["27"], ["septembre", "september"]]
+  },
+  {
+    "id": 7,
+    "category": "factual",
+    "question": "What is the new release date of version 3.4 of the mobile app?",
+    "expected_answer": "27 May (moved from 20 May)",
+    "expected_source": "meeting_notes.txt",
+    "must_contain": [["27"], ["may"]]
+  },
+  {
+    "id": 8,
+    "category": "factual",
+    "question": "Combien de tickets de support ont été ouverts en avril ?",
+    "expected_answer": "1 240 tickets",
+    "expected_source": "meeting_notes.txt",
+    "must_contain": [["1240"]]
+  },
+  {
+    "id": 9,
+    "category": "factual",
+    "question": "Which discount did the team decide to keep for the annual plan, and when will it be rolled out?",
+    "expected_answer": "The 20% discount, rolled out to all new trials on 2 June",
+    "expected_source": "meeting_notes.txt",
+    "must_contain": [["20%", "20 %", "20 percent"], ["2 june", "june 2"]]
+  },
+  {
+    "id": 10,
+    "category": "right_document",
+    "question": "How many people are in the Atlas project team?",
+    "expected_answer": "Eight people",
+    "expected_source": "rapport_projet_atlas.docx",
+    "must_contain": [["8", "eight"]]
+  },
+  {
+    "id": 11,
+    "category": "right_document",
+    "question": "According to the product team meeting, which positions are open in engineering?",
+    "expected_answer": "One senior backend developer and one QA engineer",
+    "expected_source": "meeting_notes.txt",
+    "must_contain": [["backend"], ["qa"]]
+  },
+  {
+    "id": 12,
+    "category": "right_document",
+    "question": "D'après la politique de télétravail, combien de jours par semaine peut-on travailler à distance ?",
+    "expected_answer": "Jusqu'à trois jours par semaine",
+    "expected_source": "remote_work_policy.pdf",
+    "must_contain": [["trois", "3"]]
+  },
+  {
+    "id": 13,
+    "category": "right_document",
+    "question": "In the meeting notes, what was decided about the dark mode setting?",
+    "expected_answer": "It was postponed to release 3.5 because the design review is not finished",
+    "expected_source": "meeting_notes.txt",
+    "must_contain": [["3.5"]]
+  },
+  {
+    "id": 14,
+    "category": "metadata",
+    "question": "Which documents do I have?",
+    "expected_answer": "meeting_notes.txt, rapport_projet_atlas.docx and remote_work_policy.pdf",
+    "expected_tool": "list_documents",
+    "must_contain": [["meeting_notes"], ["rapport_projet_atlas"], ["remote_work_policy"]]
+  },
+  {
+    "id": 15,
+    "category": "metadata",
+    "question": "How many pages does the remote work policy have?",
+    "expected_answer": "3 pages",
+    "expected_tool": "get_document_metadata",
+    "must_contain": [["3", "three"]]
+  },
+  {
+    "id": 16,
+    "category": "metadata",
+    "question": "Quel est le format de fichier du rapport sur le projet Atlas ?",
+    "expected_answer": "DOCX (Word)",
+    "expected_tool": "list_documents",
+    "must_contain": [["docx", "word"]]
+  },
+  {
+    "id": 17,
+    "category": "metadata",
+    "question": "Into how many chunks was the meeting notes file split?",
+    "expected_answer": "6 chunks",
+    "expected_tool": "get_document_metadata",
+    "must_contain": [["6", "six"]]
+  },
+  {
+    "id": 18,
+    "category": "no_answer",
+    "question": "What is the company's policy on parental leave?",
+    "expected_answer": "Not found in the documents"
+  },
+  {
+    "id": 19,
+    "category": "no_answer",
+    "question": "Quel est le salaire de Claire Dumont ?",
+    "expected_answer": "Introuvable dans les documents"
+  },
+  {
+    "id": 20,
+    "category": "no_answer",
+    "question": "Who is the CEO of Northwind Analytics?",
+    "expected_answer": "Not found in the documents"
+  }
+]
