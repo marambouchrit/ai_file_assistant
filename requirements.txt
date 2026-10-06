@@ -6,3 +6,6 @@ python-docx>=1.1
 # Day 2 — embeddings + vector search
 fastembed>=0.8
 qdrant-client>=1.12
+
+# Day 3 — MCP server
+mcp[cli]>=2.0

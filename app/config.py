@@ -17,7 +17,8 @@ class Settings(BaseSettings):
     openai_api_key: str = ""
     openai_model: str = "gpt-4o-mini"
 
-    qdrant_url: str = "http://localhost:6333"
+    # 127.0.0.1 rather than localhost: on Windows localhost adds ~2s per request
+    qdrant_url: str = "http://127.0.0.1:6333"
     qdrant_collection: str = "documents"
 
     embedding_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
