@@ -14,8 +14,8 @@ from app.ingestion.parsers import parse_file
 mcp = MCPServer(
     "ai-file-assistant",
     instructions=(
-        "Tools to explore the user's uploaded documents. Call list_documents first "
-        "to get the doc_id values the other tools need."
+        "Tools to explore the user's uploaded documents. search_documents works across "
+        "all documents; list_documents gives the doc_id values the other tools need."
     ),
 )
 
@@ -36,7 +36,8 @@ def _unknown_doc(doc_id: str) -> str:
 def list_documents() -> str:
     """List every uploaded document with its doc_id, filename and type.
 
-    Use this first: the other tools identify a document by its doc_id.
+    Use this when the user asks which documents exist, or when you need the
+    doc_id of a specific document for another tool.
     """
     documents = [
         {"doc_id": d["doc_id"], "filename": d["filename"], "type": d["type"]}
@@ -98,9 +99,10 @@ def get_document_metadata(doc_id: str) -> str:
 def search_documents(query: str, top_k: int = 5, doc_id: str | None = None) -> str:
     """Semantic search: find the passages most relevant to a question.
 
-    Use this to answer questions about the content of the documents. Each
-    result has the passage text, the source filename and a similarity score
-    (higher is more relevant). Works across languages.
+    Use this to answer questions about the content of the documents. It
+    searches all documents at once, so no doc_id is needed. Each result has
+    the passage text, the source filename and a similarity score (higher is
+    more relevant). Works across languages.
 
     Args:
         query: The question or topic to search for, in natural language.

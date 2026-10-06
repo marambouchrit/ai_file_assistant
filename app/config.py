@@ -14,8 +14,10 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    openai_api_key: str = ""
-    openai_model: str = "gpt-4o-mini"
+    # Any provider with an OpenAI-compatible chat API works (Gemini, OpenAI, Groq, ...)
+    llm_api_key: str = ""
+    llm_model: str = "gemini-3.5-flash-lite"
+    llm_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
 
     # 127.0.0.1 rather than localhost: on Windows localhost adds ~2s per request
     qdrant_url: str = "http://127.0.0.1:6333"
