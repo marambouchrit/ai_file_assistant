@@ -22,9 +22,11 @@ class Settings(BaseSettings):
 
     embedding_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     embedding_dim: int = 384
+    embedding_cache_dir: Path = BASE_DIR / ".cache" / "fastembed"
 
-    chunk_size: int = 800
-    chunk_overlap: int = 100
+    # The embedding model only reads the first 128 tokens (~480 chars) of a chunk
+    chunk_size: int = 450
+    chunk_overlap: int = 60
 
     docs_dir: Path = BASE_DIR / "data" / "docs"
     metadata_path: Path = BASE_DIR / "data" / "metadata.json"

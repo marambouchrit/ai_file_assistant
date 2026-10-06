@@ -17,7 +17,7 @@ def _word_start(text: str, pos: int, limit: int) -> int:
     return pos
 
 
-def chunk_text(text: str, chunk_size: int = 800, overlap: int = 100) -> list[str]:
+def chunk_text(text: str, chunk_size: int = 450, overlap: int = 60) -> list[str]:
     """Split text into chunks of at most `chunk_size` characters.
 
     Consecutive chunks share up to `overlap` characters, and both ends of a
