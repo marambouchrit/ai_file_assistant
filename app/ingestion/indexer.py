@@ -78,7 +78,10 @@ def index_document(path: str | Path) -> dict:
     parsed = parse_file(path)
     chunks = chunk_text(parsed.text, settings.chunk_size, settings.chunk_overlap)
     if not chunks:
-        raise EmptyDocumentError(f"No text could be extracted from '{path.name}'")
+        raise EmptyDocumentError(
+            f"No text could be extracted from '{path.name}'. "
+            "Empty files and scanned PDFs (images without text) are not supported."
+        )
 
     ensure_collection()
     client = get_client()

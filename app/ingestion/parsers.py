@@ -13,6 +13,10 @@ class UnsupportedFormatError(ValueError):
     """Raised when a file extension is not one of SUPPORTED_EXTENSIONS."""
 
 
+class DocumentParseError(ValueError):
+    """Raised when a file has a supported extension but cannot be read."""
+
+
 @dataclass
 class ParsedDocument:
     text: str
@@ -75,4 +79,11 @@ def parse_file(path: str | Path) -> ParsedDocument:
             f"Unsupported file type '{path.suffix}'. "
             f"Supported: {', '.join(sorted(SUPPORTED_EXTENSIONS))}"
         )
-    return parser(path)
+    try:
+        return parser(path)
+    except Exception as exc:
+        # pypdf and python-docx raise many different errors on damaged files
+        raise DocumentParseError(
+            f"Could not read '{path.name}': the file is corrupted or is not a valid "
+            f"{path.suffix.lstrip('.').upper()} file."
+        ) from exc

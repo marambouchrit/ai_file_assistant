@@ -7,13 +7,18 @@ from app.mcp_client import MCPClient
 
 MAX_ITERATIONS = 5
 
+# A search always returns top_k passages, even weak ones. Only passages scoring
+# at least MIN_SOURCE_SCORE and close enough to the best hit are shown as sources.
+MIN_SOURCE_SCORE = 0.3
+SOURCE_SCORE_RATIO = 0.6
+
 SYSTEM_PROMPT = """You are a document assistant. You answer questions about the files the user has uploaded.
 
 Rules:
 - Use the tools to look up information. Never answer from your own general knowledge.
 - Base every statement on the tool results, and cite the filename of each document you used.
 - If the tools do not return the information, say that it was not found in the documents. Do not guess.
-- Answer in the language of the user's question.
+- Always answer in the language of the user's latest message, even when the documents are in another language.
 - Write plain text without Markdown formatting (no **, no #, no backticks)."""
 
 
@@ -27,6 +32,9 @@ def _collect_sources(tool_name: str, result: str, sources: list[dict]) -> None:
         return
 
     if tool_name == "search_documents":
+        results = data.get("results", [])
+        best = max((r["score"] for r in results), default=0)
+        threshold = max(MIN_SOURCE_SCORE, best * SOURCE_SCORE_RATIO)
         found = [
             {
                 "doc_id": r["doc_id"],
@@ -35,7 +43,8 @@ def _collect_sources(tool_name: str, result: str, sources: list[dict]) -> None:
                 "score": r["score"],
                 "text": r["text"],
             }
-            for r in data.get("results", [])
+            for r in results
+            if r["score"] >= threshold
         ]
     elif tool_name == "read_document":
         found = [

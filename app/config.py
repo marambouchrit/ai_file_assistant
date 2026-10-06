@@ -31,6 +31,8 @@ class Settings(BaseSettings):
     chunk_size: int = 450
     chunk_overlap: int = 60
 
+    max_upload_mb: int = 10
+
     docs_dir: Path = BASE_DIR / "data" / "docs"
     metadata_path: Path = BASE_DIR / "data" / "metadata.json"
 

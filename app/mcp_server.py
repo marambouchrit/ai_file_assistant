@@ -9,7 +9,7 @@ from mcp.server.mcpserver import MCPServer
 
 from app.config import settings
 from app.ingestion.indexer import load_metadata, search
-from app.ingestion.parsers import parse_file
+from app.ingestion.parsers import DocumentParseError, parse_file
 
 mcp = MCPServer(
     "ai-file-assistant",
@@ -66,7 +66,10 @@ def read_document(doc_id: str, max_chars: int = 4000) -> str:
     if not path.exists():
         return _error(f"The file for '{doc['filename']}' is missing on the server.")
 
-    text = parse_file(path).text
+    try:
+        text = parse_file(path).text
+    except DocumentParseError as exc:
+        return _error(str(exc))
     max_chars = max(1, max_chars)
     return _json(
         {

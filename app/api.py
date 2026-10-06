@@ -7,11 +7,12 @@ from fastapi import FastAPI, HTTPException, UploadFile
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from qdrant_client.http.exceptions import ResponseHandlingException
 
 from app.agent import run_agent
 from app.config import settings
 from app.ingestion.indexer import EmptyDocumentError, index_document, load_metadata
-from app.ingestion.parsers import SUPPORTED_EXTENSIONS
+from app.ingestion.parsers import SUPPORTED_EXTENSIONS, DocumentParseError
 from app.mcp_client import MCPClient, to_openai_tools
 
 
@@ -84,15 +85,30 @@ async def upload(file: UploadFile):
             400, f"Unsupported file type. Supported: {', '.join(sorted(SUPPORTED_EXTENSIONS))}"
         )
 
+    content = await file.read()
+    if not content:
+        raise HTTPException(400, "The file is empty.")
+    if len(content) > settings.max_upload_mb * 1024 * 1024:
+        raise HTTPException(413, f"The file is too large (limit: {settings.max_upload_mb} MB).")
+
     settings.docs_dir.mkdir(parents=True, exist_ok=True)
     path = settings.docs_dir / filename
-    path.write_bytes(await file.read())
+    previous = path.read_bytes() if path.exists() else None
+    path.write_bytes(content)
     try:
         # parsing and embedding are blocking, so keep them off the event loop
         return await run_in_threadpool(index_document, path)
-    except EmptyDocumentError as exc:
-        path.unlink(missing_ok=True)
-        raise HTTPException(400, str(exc))
+    except Exception as exc:
+        # indexing failed: put data/docs back the way it was
+        if previous is None:
+            path.unlink(missing_ok=True)
+        else:
+            path.write_bytes(previous)
+        if isinstance(exc, (EmptyDocumentError, DocumentParseError)):
+            raise HTTPException(400, str(exc))
+        if isinstance(exc, ResponseHandlingException):
+            raise HTTPException(503, "Cannot reach the vector database. Is Qdrant running?")
+        raise
 
 
 @app.get("/documents", response_model=list[DocumentInfo])

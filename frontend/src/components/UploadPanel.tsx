@@ -45,7 +45,7 @@ export default function UploadPanel({ onUploaded }: Props) {
           onChange={handleChange}
         />
         <span className="font-medium">{uploading ? 'Indexing…' : 'Upload a document'}</span>
-        <span className="mt-1 block text-xs text-slate-400">PDF, DOCX or TXT</span>
+        <span className="mt-1 block text-xs text-slate-400">PDF, DOCX or TXT · max 10 MB</span>
       </label>
       {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
     </div>
