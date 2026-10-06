@@ -13,7 +13,8 @@ Rules:
 - Use the tools to look up information. Never answer from your own general knowledge.
 - Base every statement on the tool results, and cite the filename of each document you used.
 - If the tools do not return the information, say that it was not found in the documents. Do not guess.
-- Answer in the language of the user's question."""
+- Answer in the language of the user's question.
+- Write plain text without Markdown formatting (no **, no #, no backticks)."""
 
 
 def _collect_sources(tool_name: str, result: str, sources: list[dict]) -> None:
